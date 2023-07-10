@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\File;
 use App\Models\known;
 use App\Models\unknown;
+use App\Models\simple;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -17,6 +18,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
+                set_time_limit(0);
+        ini_set('max_execution_time', '0');
+        ini_set('memory_limit', '512M');
         $user = Auth::id();
         $file = File::where('user',$user)->get();
         return view('home',compact('file'));
@@ -36,6 +40,10 @@ class DashboardController extends Controller
      */
     public function store(Request $request)
     {
+        set_time_limit(0);
+        ini_set('max_execution_time', '0');
+        ini_set('memory_limit', '512M');
+
         $file = $request->file('pdf');
         $pdfFile = "";
         if(!empty($file)){
@@ -77,6 +85,11 @@ class DashboardController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        set_time_limit(0);
+        ini_set('max_execution_time', '0');
+        ini_set('memory_limit', '512M');
+
+
         $file = File::FindOrFail($id);
 
         $name = $file->name;
@@ -102,9 +115,11 @@ class DashboardController extends Controller
 
 
     function save_words($file_name){
-        global $known_words, $unknowns, $db;
+        global $known_words,$simple, $unknowns;
         $known_words = [];
+        $simple = [];
         $this->set_knowns();
+        $this->simple();
         $unknowns = [];
         $text = $this->read_pdf($file_name);
         $this->filter_text($text);
@@ -126,10 +141,14 @@ class DashboardController extends Controller
             $text = strtolower($line);
             preg_match_all("/(?!([a-z]+es\b|[a-z]+ed\b))[a-z]{3,}/", $text, $matches);
             $array = array_filter($matches[0], function ($word) {
-                global $known_words;
+                global $known_words , $simple;
                 if (in_array($word, $known_words)) {
                     return false;
-                } else {
+                }
+                elseif (in_array($word , $simple)){
+                    return false;
+                }
+                else {
                     return true;
                 }
             });
@@ -144,14 +163,15 @@ class DashboardController extends Controller
         $target = 'fa';
         $trans = new GoogleTranslate();
         foreach ($counted as $word => $frequency) {
-            $stemmed = \Nadar\Stemming\Stemm::stem($word, 'en');
+            $stemmed = \Nadar\Stemming\Stemm::stem($word, 'en'); // Call For Find Root Word
 
-            $translate = $trans->translate($source, $target, $word);
+//            $translate = $trans->translate($source, $target, $word);  //Call For Translate Word
             echo "<meta charset=utf-8><pre dir=rtl>";
             unknown::create([
                 'word'=>$word,
                 'repetition'=>$frequency,
-                'translate'=>$translate,
+//                'translate'=>$translate,
+                'translate'=>"-",
                 'root'=>$stemmed,
                 'level'=>$this->determineDifficulty($word),
                 'difficultyRate'=>$this->rate($word),
@@ -168,6 +188,14 @@ class DashboardController extends Controller
         $results = known::pluck('word');
         foreach ($results as $words) {
             $known_words[] = $words;
+        }
+    }
+    function simple()
+    {
+        global $simple;
+        $results = simple::pluck('word');
+        foreach ($results as $words) {
+            $simple[] = $words;
         }
     }
     function rate($word) {

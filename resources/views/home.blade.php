@@ -17,7 +17,7 @@
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
-                    <form action="{{route('dashboard.store')}}" method="post" enctype="multipart/form-data">
+                    <form action="{{route('dashboard.store')}}" id="file_upload" method="post" enctype="multipart/form-data">
                         @csrf
                         <label for="images" class="drop-container">
                             <span class="drop-title">Drop files here</span>
@@ -25,7 +25,9 @@
                             <input type="file" id="pdf" name="pdf" accept="pdf/*" required>
 
                         </label>
-                        <button type="submit" class="btn btn-success  mt-2 px-5">Start</button>
+                        <button id="button" type="submit" class="btn btn-success  mt-2 px-5">Start</button>
+                        <div id="loading"></div>
+                        <div id="loading-text"></div>
                     </form>
                 </div>
             </div>
@@ -44,11 +46,12 @@
                                    Download = "file-".{{$item->name}}>
                                     Download
                                 </a>
-                            <form class="d-inline mx-3" action="{{route('dashboard.update',$item->id)}}" method="post" enctype="multipart/form-data">
+                            <form class="d-inline mx-3" id="file_upload_2" action="{{route('dashboard.update',$item->id)}}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 @method('put')
+
                                 <input hidden type="text" vi>
-                                <button type="submit" class="btn btn-success">Translate</button>
+                                <button type="submit" id="button2" class="btn btn-success">Translate</button>
                             </form>
                                 <span style="color: brown">{{$item->name}}</span>
                                 <a href="" onclick="destroyUser(event,{{$item->id}})" class="btn btn-danger px-5 mx-3">حذف</a>
@@ -69,10 +72,34 @@
 </div>
 @endsection
 @section('js')
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script>
         function destroyUser(event,id){
             event.preventDefault();
             document.querySelector('#userdelete-'+id).submit();
         }
+    </script>
+
+    <script>
+            $(document).ready(function () {
+                function showLoading() {
+                    $('#loading').show();
+                    // $('#button').attr('disabled', 'disabled');
+                    $('#loading-text').text('Please wait for upload , tokenize , translate ...');
+                }
+
+                $(document).ready(function() {
+                    $('#button').click(function() {
+
+                        showLoading();
+                    });
+                    $('#button2').click(function() {
+
+                        showLoading();
+                    });
+                });
+
+            });
     </script>
 @endsection

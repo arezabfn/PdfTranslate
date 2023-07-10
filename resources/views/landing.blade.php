@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{{asset('front/css/landing/landing.css')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
     <script href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-{{--    <script href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>--}}
     <title>A-Translate - HomePage</title>
 </head>
 <body>
@@ -46,7 +45,7 @@
     <div class="covertext">
         <div class="col-lg-10" style="float:none; margin:0 auto;">
             <h1 class="title">A-Translate</h1>
-            <h3 class="subtitle">Select Your Pdf , Upload , Tokenize , Translate , Print All Unknown Words</h3>
+            <h3 class="subtitle ">Select Your Pdf , Upload , Tokenize , Translate , Print All Unknown Words</h3>
             <h3 class="subtitle" style="color: tomato">You Must Log in First !</h3>
             <br>
             <hr>

@@ -69,15 +69,15 @@
 }
 
 .carousel .background.a {
-    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://static.pexels.com/photos/92090/pexels-photo-92090-large.jpeg");
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("front/image/3.jpg");
 }
 
 .carousel .background.b {
-    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://static.pexels.com/photos/93750/pexels-photo-93750-large.jpeg");
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("front/image/2.jpg");
 }
 
 .carousel .background.c {
-    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://static.pexels.com/photos/76827/bahia-ocean-bay-boat-76827-large.jpeg");
+    background-image: linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("front/image/4.jpg");
 }
 
 .carousel-fade .carousel-inner .item {
@@ -127,6 +127,8 @@
     font-size: 60px;
     color: #ffffff;
     text-align: center;
+    text-shadow: 5px 5px 5px black;
+
 }
 
 .subtitle {
@@ -134,6 +136,7 @@
     font-size: 23px;
     color: #ffffff;
     text-align: center;
+    text-shadow: 5px 5px 5px black;
 }
 
 .explore {

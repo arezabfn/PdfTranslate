@@ -24,7 +24,7 @@
                                 <th>Translate</th>
                                 <th>Root</th>
                                 <th>Level</th>
-                                <th>type</th>
+{{--                                <th>type</th>--}}
                                 <th>Difficulty percentage</th>
                                 <th>Repeat</th>
                                 <th>Add to</th>
@@ -38,7 +38,7 @@
                                     <td>{{$item->translate}}</td>
                                     <td>{{$item->root}}</td>
                                     <td>{{$item->level}}</td>
-                                    <td>{{$item->type}}</td>
+{{--                                    <td>{{$item->type}}</td>--}}
                                     <td>
                                         <div class="progress">
                                             <div class="progress-bar" role="progressbar" style="width: {{$item->difficultyRate}}%">{{$item->difficultyRate}}%</div>
